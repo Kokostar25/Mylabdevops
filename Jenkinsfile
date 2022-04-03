@@ -1,41 +1,31 @@
-pipeline{
-    //Directives
+pipeline {
+    //Directives - agent, tools env etc any means it will run this pipeline on any available agent. 
+    //This will instruct jenkins to allocate an executor and at the same time create the workspace 
+    //for the entire pipeline also tool section to pre install any tool we may require or add the tool to the path
     agent any
     tools {
         maven 'maven'
     }
-
     stages {
-        // Specify various stage with in stages
-
-        // stage 1. Build
-        stage ('Build'){
+        // You specify various stages with in a stage
+        stage ('Build') {
             steps {
                 sh 'mvn clean install package'
             }
+
         }
-
-        // Stage2 : Testing
-        stage ('Test'){
+        stage ('Test') {
             steps {
-                echo ' testing......'
-
+                echo 'testing code .....'
+            }
+        }
+        stage ('Deploy') {
+            steps {
+                echo 'Deploying code...'
             }
         }
 
-        // Stage3 : Publish the source code to Sonarqube
-        stage ('Sonarqube Analysis'){
-            steps {
-                echo ' Source code published to Sonarqube for SCA......'
-                withSonarQubeEnv('sonarqube'){ // You can override the credential to be used
-                     sh 'mvn sonar:sonar'
-                }
-
-            }
-        }
-
-        
-        
     }
+
 
 }
