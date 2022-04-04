@@ -11,7 +11,7 @@ pipeline {
         ArtifactId = readMavenPom().getArtifactId()
         Version = readMavenPom().getVersion()
         Name = readMavenPom().getName()
-        GroupId = readMavenPom().getGroupId
+        GroupId = readMavenPom().getGroupId()
     }
     stages {
         // You specify various stages with in a stage
@@ -51,7 +51,7 @@ pipeline {
         stage ('Print Environment Variables') {
             steps {
                 echo "Artifact ID is '${ArtifactId}'"
-                echo "Version is '${$ersion}'"
+                echo "Version is '${Version}'"
                 echo "Group ID is '${GroupId}'"
                 echo "Name is '${Name}'"
             }
